@@ -1,0 +1,15 @@
+7
+
+#CEO:
+Andreas Schwangau,$120_000,
+
+#Programmers:
+Cosme Masterson,$100_000,Andreas Schwangau
+Absalom Chvatal,$60_000,Cosme Masterson
+Micaiah Uberti,$60_000,Cosme Masterson
+Innokentiy Bassi,$40_000,Micaiah Uberti
+Aiolos Alkema,$40_000,Innokentiy Bassi
+
+#CFO:
+Tobias Ramsey,$70_000,
+

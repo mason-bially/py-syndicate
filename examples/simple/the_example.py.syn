@@ -1,0 +1,49 @@
+# These are comments
+## This is an attempt at building a python version that implements the example.
+## It should be considered equivelent to the other examples.
+
+# Declare that this is a program (as opposed to a library, or another kind of module)
+program the_example
+
+# Now describe the employee structure
+struct employee:
+    ##py: This may be python's syntax but it still has to have types, in this case borrowed wholesale from c
+    name char*
+    salary uint32
+    manager employee*
+
+#Some global data:
+g_employee_data employee*
+g_employee_data_length uint
+
+# Helper functions:
+def find_employee(name char*) employee*:
+    for uint i = 0, i < g_employee_data_length, i++:
+        if str.equal(name, g_employee_data[i].name)):
+            return g_employee_data + i
+    return null
+
+# Parse Functions:
+def parse_employee(line char*, into employee*) bool:
+    name char* = line
+    salary char* = null
+    manager char* = null
+    
+    loc uint = 0
+    loop:
+        if line[loc] == ',':
+            line[loc] = '\0'
+            if salary != null:
+                salary = line + loc + 1
+            else:
+                manager = line + loc + 1
+                break
+        elif line[loc] == '\0':
+            return false
+        loc++
+
+    into.name = str.copy(line)
+    into.salary = (uint32)parse.uint(salary)
+    into.manager = find_employee(manager)
+
+    return true

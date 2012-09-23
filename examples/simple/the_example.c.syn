@@ -1,0 +1,57 @@
+// These are comments
+/// This is an attempt at building a python version that implements the example.
+/// It should be considered equivelent to the other examples.
+
+// Declare that this is a program (as opposed to a library, or another kind of module)
+program the_example;
+
+// Now describe the employee structure
+struct t_employee {
+    char* name;
+    ///c: We use a more percise integer type system here, c's integer types are pretty stupidly defined
+    uint32 salary;
+    t_employee* manager;
+}
+
+//Some global data:
+t_employee* g_employee_data;
+uint g_employee_data_length;
+
+// Helper functions
+t_employee* find_employee(char* name) {
+    for (uint i = 0; i < g_employee_data_length; i++) {
+        if (str::equal(name, g_employee_data[i].name))
+            return g_employee_data + i;
+    }
+    return null;
+}
+
+//Parse Functions:
+bool parse_employee(char* line, t_employee* into) {
+    char* name = line;
+    char* salary = null;
+    char* manager = null;
+    
+    uint loc = 0;
+    loop {
+        if (line[loc] == ',') {
+            line[loc] = '\0';
+            if (salary != null) {
+                salary = line + loc + 1;
+            } else {
+                manager = line + loc + 1;
+                break;
+            }
+        }
+        else if (line[loc] == '\0') {
+            return false;
+        }
+        loc++;
+    }
+
+    into->name = str::copy(line);
+    into->salary = (uint32)parse::uint(salary);
+    into->manager = find_employee(manager);
+
+    return true;
+}

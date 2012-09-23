@@ -1,0 +1,52 @@
+; These are comments
+;; This is an attempt at building a python version that implements the example.
+;; It should be considered equivelent to the other examples.
+
+; Declare that this is a program (as opposed to a library, or another kind of module)
+(program the-example)
+
+; Now describe the employee structure
+(struct employee
+    ;;lisp: This may be lisp syntax but it still has to have types, in this case borrowed wholesale from c
+    char* name
+    uint32 salary
+    employee* manager)
+
+;Some global data:
+(var g-employee-data employee*)
+(var g-employee-data-length uint)
+
+; Helper functions:
+(defn find-employee employee* (char* name)
+    (for (uint i 0) (< i g-employee-data-length) (inc i)
+        (if (str:equal name (.name (g-employee-data i))) ;TODO resolve this
+            (return (+ g-employee-data i))))
+    (return null))
+
+; Parse Functions:
+(defn parse_employee bool (char* line employee* into)
+    (var name char* line)
+    (var salary char* null)
+    (var manager char* null)
+    
+    (var loc uint 0)
+    (loop
+        ;;lisp: cond is equivelent to if, elif, else blocks
+        (cond 
+            (eq? (line loc) ',') (do
+                (:= (line loc) '\0')
+                (if (neq? salary null)
+                    (:= salary (+ line loc 1))
+                    (do (:= manager (+ line loc 1)) (break)))
+                )
+            (eq? (line loc) '\0') (return false))
+        (inc loc)
+    )
+
+    (:= (.name into) (str:copy line))
+    (:= (.salary into) (cast uint32 (parse:uint salary)))
+    (:= (.manager into) (find_employee manager))
+
+    (return true)
+)
+
