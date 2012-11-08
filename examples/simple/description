@@ -1,19 +1,37 @@
-This is a simple example of a command line program which parses a file and then performs some operation on the data parsed out of the file. The files contain employee information. The operations are as follows:
+This is a simple example of a command line program which parses a file
+and then performs some operation on the data parsed out of the
+file. The files contain employee information. The operations are as
+follows:
 
 list: Lists the names of the employees.
-managers: Lists all managers and the employees they manage and the employees they manage (hierarchical). Then lists unmanaged employees.
-info [name]: Lists the information (name, salary, manager) for an employee.
-payroll: Totals the salaries and prints the total money needed for a month.
-stats: lists a bunch of statistics about all of the employees, average salary, managers (and average salary, average people managed), non-managers (and average salary)
+
+managers: Lists all managers and the employees they manage and the
+  employees they manage (hierarchical). Then lists unmanaged employees.
+
+info [name]: Lists the information (name, salary, manager) for an
+  employee.
+
+payroll: Totals the salaries and prints the total money needed for a
+  month.
+
+stats: lists a bunch of statistics about all of the employees, average
+  salary, managers (and average salary, average people managed),
+  non-managers (and average salary)
 
 == Data Format ==
+
 This first line has a number indicating the number of employees.
-Subsequent line should be blank (not indicating an employee), start with # (indicating a comment), or contain an employee
+Subsequent line should be blank (not indicating an employee), start
+with # (indicating a comment), or contain an employee
 
 Each employee line should look like:
 Full Name,$40_000,Manager Name
-    Where the second entry is a dollar amount in integer format, (Note that the integer parser should support characters like $,._ but commas are split for the record so _ is used instead). The third entry is the manager and may be blank, but the trailing comma still needs to be there.
-    Managers must come before the people they manage in the list.
+
+Where the second entry is a dollar amount in integer format, (Note
+that the integer parser should support characters like $,._ but commas
+are split for the record so _ is used instead). The third entry is the
+manager and may be blank, but the trailing comma still needs to be
+there.  Managers must come before the people they manage in the list.
 
 Example files are:
 a.data
@@ -24,5 +42,6 @@ b.error.data
 
 The implementation should be built as follows:
 Each command should be a function.
-There should be shared functions which parse the file, and build the management hierarchy
+There should be shared functions which parse the file, and build the
+management hierarchy
 Each employee should be a struct
