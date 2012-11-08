@@ -1,5 +1,5 @@
 ; These are comments
-;; This is an attempt at building a python version that implements the example.
+;; This is an attempt at building a lisp version that implements the example.
 ;; It should be considered equivelent to the other examples.
 
 ; Declare that this is a program (as opposed to a library, or another kind of module)
